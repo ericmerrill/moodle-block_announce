@@ -1,0 +1,9 @@
+.block_system_messages .coursebox {
+    border: 1px solid black;
+}
+
+.block_system_messages .coursebox .controls {
+    float: right;
+    cursor: pointer;
+}
+
