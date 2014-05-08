@@ -27,19 +27,27 @@ define('AJAX_SCRIPT', true);
 
 require_once(dirname(__FILE__) . '/../../config.php');
 
-//require_sesskey();
 require_login();
 
 $messageid = required_param('messageid', PARAM_INT);
+$hide = optional_param('hide', 1, PARAM_INT);
 
 $messages = get_user_preferences('block_system_messages_hidden');
 
-if ($messages) { 
+if ($messages) {
     $messages = explode(',', $messages);
 } else {
     $messages = array();
 }
 
-$messages[] = $messageid;
+if ($hide) {
+    if (($key = array_search($messageid, $messages)) === false) {
+        $messages[] = $messageid;
+    }
+} else {
+    if (($key = array_search($messageid, $messages)) !== false) {
+        unset($messages[$key]);
+    }
+}
 
 set_user_preference('block_system_messages_hidden', implode(',', $messages));

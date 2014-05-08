@@ -28,26 +28,36 @@ defined('MOODLE_INTERNAL') || die();
 class block_system_messages_renderer extends plugin_renderer_base {
 
     public function init() {
-        //$this->page->requires->js_init_call('M.block_system_messages.attachall');
+        $this->page->requires->js_init_call('M.block_system_messages.attachall');
     }
 
     public function message($message) {
         global $OUTPUT;
 
-        $this->page->requires->js_init_call('M.block_system_messages.attach', array($message->id));
-
         $controls = $this->get_controls();
-        $message = $OUTPUT->box($controls.$message->message, 'coursebox', 'block_system_message_id_'.$message->id);
+        $messageconent = $OUTPUT->box($message->message, 'messagecontent');
+        $hidden = $this->get_hidden_message();
 
-        return $message;
+        $params = array('idnum' => $message->id);
+        $messagetxt = $OUTPUT->box($hidden.$controls.$messageconent, 'messagebox',
+                'block_system_message_id_'.$message->id, $params);
+
+        return $messagetxt;
     }
 
     public function get_controls() {
         global $OUTPUT;
-        $controls = $OUTPUT->action_icon('', new \pix_icon('t/delete', 'Remove Message'), null, array('alt' => 'Remove Message'));
-        $controls = $OUTPUT->box($controls, 'controls');
+
+        $controls = $OUTPUT->render(new \pix_icon('t/delete', 'Remove Message', null, array('class' => 'controls')));
 
         return $controls;
     }
 
+    public function get_hidden_message() {
+        global $OUTPUT;
+
+        $hidden = $OUTPUT->box('Message removed', 'hiddenmessage');
+
+        return $hidden;
+    }
 }

@@ -34,11 +34,14 @@ class block_system_messages extends block_base {
         global $OUTPUT, $DB;
 
         if ($this->content !== null) {
-          return $this->content;
+            return $this->content;
         }
+
+        $this->content        = new stdClass;
+        $this->content->text  = $OUTPUT->box('', 'hidden', 'block_system_messages_hidden_box');
+        $this->content->text  .= $OUTPUT->box('', 'messagebox hidden', 'block_system_messages_message_box');
+
         
-        $this->content         =  new stdClass;
-        $this->content->text   = '';
 
         $messages = $DB->get_records('block_system_messages');
         $renderer = $this->page->get_renderer('block_system_messages');
@@ -48,14 +51,13 @@ class block_system_messages extends block_base {
         $hidden = explode(',', $hidden);
 
         foreach ($messages as $message) {
-            if (!in_array($message->id, $hidden)) {
-                $this->content->text   .=  $renderer->message($message);
-            }
+            //if (!in_array($message->id, $hidden)) {
+                $this->content->text .= $renderer->message($message);
+            //}
         }
 
-        
-        $this->content->footer = 'Footer here...';
-        
+        //$this->content->footer = '';
+
         return $this->content;
     }
 
@@ -63,7 +65,7 @@ class block_system_messages extends block_base {
         return true;
     }
 
-    /*public function applicable_formats() {
-        return array('site' => true);
-    }*/
+    public function applicable_formats() {
+        return array();
+    }
 }

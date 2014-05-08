@@ -1,9 +1,49 @@
-.block_system_messages .coursebox {
-    border: 1px solid black;
+.block_system_messages.block {
+    /*background-color: transparent;
+    border: none;
+    box-shadow: none;*/
 }
 
-.block_system_messages .coursebox .controls {
+.block_system_messages.block .content {
+    padding: 0px;
+}
+
+.block_system_messages .messagebox {
+    margin: 7px;
+    border: 1px solid #3c3c3c;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: white;
+}
+
+.block_system_messages .messagebox .controls {
     float: right;
     cursor: pointer;
+    opacity: 0;
 }
 
+
+
+.block_system_messages .messagebox .hiddenmessage {
+    position: absolute;
+    opacity: 0;
+    color: #939393;
+}
+
+#block_system_messages_hidden_box {
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    opacity: 0;
+    background-color: #ffffeb;
+    border-color: #e3e3e3;
+}
+
+
+.block_system_messages .messagebox .messagecontent .controls {
+
+}
+
+.block_system_messages .messagebox .messagecontent {
+
+}
