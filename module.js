@@ -1,7 +1,7 @@
-M.block_system_messages = {}
+M.block_announce = {}
 
-M.block_system_messages.attachall = function(Y) {
-    M.block_system_messages.Y = Y;
+M.block_announce.attachall = function(Y) {
+    M.block_announce.Y = Y;
 
     var DELETEICON = {
         pix: "t/delete",
@@ -13,7 +13,7 @@ M.block_system_messages.attachall = function(Y) {
     };
 
     YUI().use('node', function(Y) {
-        list = Y.Node.all('.block_system_messages .messagebox');
+        list = Y.Node.all('.block_announce .messagebox');
         list.each(function(node, k) {
             if (node) {
                 // Replace move link and image with move_2d image.
@@ -23,14 +23,14 @@ M.block_system_messages.attachall = function(Y) {
                     imagenode.addClass('cursor2');
                     imagenode.setStyle('opacity', 1);
 
-                    imagenode.once('click', M.block_system_messages.clickdelete, node, Y);
+                    imagenode.once('click', M.block_announce.clickdelete, node, Y);
                 }
             };
         });
     });
 }
 
-M.block_system_messages.clickundo = function(e, Y, timer) {
+M.block_announce.clickundo = function(e, Y, timer) {
     DELETEICON = {
         pix: "t/delete",
         component: 'moodle'
@@ -51,18 +51,18 @@ M.block_system_messages.clickundo = function(e, Y, timer) {
     hidden.hide(true);
 
     this.transition({
-        borderColor: Y.Node.one('#block_system_messages_message_box').getComputedStyle('borderColor')
+        border: Y.Node.one('#block_announce_message_box').getComputedStyle('border')
     });
     this.transition({
         height: message.get('clientHeight') + 'px',
-        backgroundColor: Y.Node.one('#block_system_messages_message_box').getComputedStyle('backgroundColor')
+        backgroundColor: Y.Node.one('#block_announce_message_box').getComputedStyle('backgroundColor')
     }, function() {
         imagenode.setAttribute('src', M.util.image_url(DELETEICON.pix, DELETEICON.component));
-        imagenode.once('click', M.block_system_messages.clickdelete, this, Y);
+        imagenode.once('click', M.block_announce.clickdelete, this, Y);
     });
 }
 
-M.block_system_messages.clickdelete = function(e, Y) {
+M.block_announce.clickdelete = function(e, Y) {
     UNDOICON = {
         pix: "e/undo",
         component: 'moodle'
@@ -80,33 +80,26 @@ M.block_system_messages.clickdelete = function(e, Y) {
     hidden.show(true);
 
     this.transition({
-        borderColor: Y.Node.one('#block_system_messages_hidden_box').getComputedStyle('borderColor')
+        border: Y.Node.one('#block_announce_hidden_box').getComputedStyle('border')
     });
     this.transition({
         height: hidden.get('clientHeight') + 'px',
-        backgroundColor: Y.Node.one('#block_system_messages_hidden_box').getComputedStyle('backgroundColor')
+        backgroundColor: Y.Node.one('#block_announce_hidden_box').getComputedStyle('backgroundColor')
     }, function() {
         imagenode.setAttribute('src', M.util.image_url(UNDOICON.pix, UNDOICON.component));
 
         timer = Y.later(1000, this, function () {
             idnum = this.getAttribute('idnum');
-            M.block_system_messages.save(idnum, 1);
+            M.block_announce.save(idnum, 1);
 
             hidden = this.one('.hiddenmessage');
             imagenode = this.one('.controls');
 
             imagenode.transition({
-                opacity: 0,
-                height: 0,
-                witdh: 0
-            });
-            hidden.transition({
-                opacity: 0,
-                height: 0,
-                witdh: 0
+                height: 0
             });
 
-            block = this.ancestor('.block_system_messages');
+            block = this.ancestor('.block_announce');
             list = block.all('.hiddenmessage');
 
             // For some reason, padding and border cause the transition to never end.
@@ -120,7 +113,7 @@ M.block_system_messages.clickdelete = function(e, Y) {
                 easing: 'ease',
                 opacity: 0,
                 height: 0,
-                width: 0
+                //width: 0
             }, function() {
                 if (list.size() > 1) {
                     this.empty(true);
@@ -147,18 +140,18 @@ M.block_system_messages.clickdelete = function(e, Y) {
             }
         });
 
-        imagenode.once('click', M.block_system_messages.clickundo, this, Y, timer);
+        imagenode.once('click', M.block_announce.clickundo, this, Y, timer);
     });
 }
 
-M.block_system_messages.save = function(id, h) {
-    var Y = M.block_system_messages.Y;
+M.block_announce.save = function(id, h) {
+    var Y = M.block_announce.Y;
 
     var params = {
         messageid : id,
         hide : h
     };
-    Y.io(M.cfg.wwwroot + '/blocks/system_messages/save.php', {
+    Y.io(M.cfg.wwwroot + '/blocks/announce/save.php', {
         method: 'POST',
         data: build_querystring(params),
         context: this

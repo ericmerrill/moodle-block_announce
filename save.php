@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * A block for showing system wide messages.
+ * A block for showing announcements.
  *
- * @package    block_system_messages
+ * @package    block_announce
  * @author     Eric Merrill <merrill@oakland.edu>
  * @copyright  2014 Oakland University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -32,7 +32,7 @@ require_login();
 $messageid = required_param('messageid', PARAM_INT);
 $hide = optional_param('hide', 1, PARAM_INT);
 
-$messages = get_user_preferences('block_system_messages_hidden');
+$messages = get_user_preferences('block_announce_hidden');
 
 if ($messages) {
     $messages = explode(',', $messages);
@@ -50,4 +50,4 @@ if ($hide) {
     }
 }
 
-set_user_preference('block_system_messages_hidden', implode(',', $messages));
+set_user_preference('block_announce_hidden', implode(',', $messages));

@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * A block for showing system wide messages.
+ * A block for showing announcements.
  *
- * @package    block_system_messages
+ * @package    block_announce
  * @author     Eric Merrill <merrill@oakland.edu>
  * @copyright  2014 Oakland University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,10 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-class block_system_messages_renderer extends plugin_renderer_base {
+class block_announce_renderer extends plugin_renderer_base {
 
     public function init() {
-        $this->page->requires->js_init_call('M.block_system_messages.attachall');
+        $this->page->requires->js_init_call('M.block_announce.attachall');
     }
 
     public function message($message) {
@@ -40,7 +40,7 @@ class block_system_messages_renderer extends plugin_renderer_base {
 
         $params = array('idnum' => $message->id);
         $messagetxt = $OUTPUT->box($hidden.$controls.$messageconent, 'messagebox',
-                'block_system_message_id_'.$message->id, $params);
+                'block_announce_id_'.$message->id, $params);
 
         return $messagetxt;
     }

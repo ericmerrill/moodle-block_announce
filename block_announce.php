@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * A block for showing system wide messages.
+ * A block for showing announcements.
  *
- * @package    block_system_messages
+ * @package    block_announce
  * @author     Eric Merrill <merrill@oakland.edu>
  * @copyright  2014 Oakland University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,9 +25,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-class block_system_messages extends block_base {
+class block_announce extends block_base {
     public function init() {
-        $this->title = get_string('pluginname', 'block_system_messages');
+        $this->title = get_string('pluginname', 'block_announce');
     }
 
     public function get_content() {
@@ -38,16 +38,16 @@ class block_system_messages extends block_base {
         }
 
         $this->content        = new stdClass;
-        $this->content->text  = $OUTPUT->box('', 'hidden', 'block_system_messages_hidden_box');
-        $this->content->text  .= $OUTPUT->box('', 'messagebox hidden', 'block_system_messages_message_box');
+        $this->content->text  = $OUTPUT->box('', 'hidden', 'block_announce_hidden_box');
+        $this->content->text  .= $OUTPUT->box('', 'messagebox hidden', 'block_announce_message_box');
 
         
 
-        $messages = $DB->get_records('block_system_messages');
-        $renderer = $this->page->get_renderer('block_system_messages');
+        $messages = $DB->get_records('block_announce');
+        $renderer = $this->page->get_renderer('block_announce');
         $renderer->init();
 
-        $hidden = get_user_preferences('block_system_messages_hidden');
+        $hidden = get_user_preferences('block_announce_hidden');
         $hidden = explode(',', $hidden);
 
         foreach ($messages as $message) {
@@ -66,6 +66,6 @@ class block_system_messages extends block_base {
     }
 
     public function applicable_formats() {
-        return array();
+        return array('all' => true, 'mod' => false, 'tag' => false);
     }
 }

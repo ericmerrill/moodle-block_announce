@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="blocks/system_messages/db" VERSION="20140507" COMMENT="XMLDB file for Moodle blocks/system_messages"
+<XMLDB PATH="blocks/announce/db" VERSION="20140507" COMMENT="XMLDB file for Moodle blocks/announce"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="block_system_messages" COMMENT="Default comment for block_system_messages, please edit me">
+    <TABLE NAME="block_announce" COMMENT="Default comment for block_announce, please edit me">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="message" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="The message body"/>

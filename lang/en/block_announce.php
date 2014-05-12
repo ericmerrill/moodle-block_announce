@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * A block for showing system wide messages.
+ * A block for showing announcements.
  *
- * @package    block_system_messages
+ * @package    block_announce
  * @author     Eric Merrill <merrill@oakland.edu>
  * @copyright  2014 Oakland University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'System Messages';
+$string['pluginname'] = 'Announcements';
 
-$string['system_messages:addinstance'] = 'Add a new System Messages block';
-$string['system_messages:addmyinstance'] = 'Add a new System Message block to the My Moodle page';
+$string['announce:addinstance'] = 'Add a new Announcements block';
+$string['announce:addmyinstance'] = 'Add a new Announcements block to the My Moodle page';

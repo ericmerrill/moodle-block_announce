@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * A block for showing system wide messages.
+ * A block for showing announcements.
  *
- * @package    block_system_messages
+ * @package    block_announce
  * @author     Eric Merrill <merrill@oakland.edu>
  * @copyright  2014 Oakland University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -28,6 +28,6 @@ defined('MOODLE_INTERNAL') || die();
 $plugin->version   = 2014050700;
 $plugin->requires  = 2013101800; // See http://docs.moodle.org/dev/Moodle_Versions.
 $plugin->cron      = 1;
-$plugin->component = 'block_system_messages';
+$plugin->component = 'block_announce';
 $plugin->maturity  = MATURITY_ALPHA;
 $plugin->release   = '0.0.1 Alpha';
