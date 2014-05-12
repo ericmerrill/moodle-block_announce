@@ -18,10 +18,12 @@
 
 .block_announce .messagebox .controls {
     float: right;
-    cursor: pointer;
     opacity: 0;
 }
 
+.block_announce .cursor {
+    cursor: pointer;
+}
 
 
 .block_announce .messagebox .hiddenmessage {

@@ -20,7 +20,7 @@ M.block_announce.attachall = function(Y) {
                 var imagenode = node.one('.controls');
                 if (imagenode) {
                     imagenode.setAttribute('src', M.util.image_url(DELETEICON.pix, DELETEICON.component));
-                    imagenode.addClass('cursor2');
+                    imagenode.addClass('cursor');
                     imagenode.setStyle('opacity', 1);
 
                     imagenode.once('click', M.block_announce.clickdelete, node, Y);
@@ -88,19 +88,26 @@ M.block_announce.clickdelete = function(e, Y) {
     }, function() {
         imagenode.setAttribute('src', M.util.image_url(UNDOICON.pix, UNDOICON.component));
 
-        timer = Y.later(1000, this, function () {
+        timer = Y.later(2000, this, function () {
             idnum = this.getAttribute('idnum');
             M.block_announce.save(idnum, 1);
 
             hidden = this.one('.hiddenmessage');
             imagenode = this.one('.controls');
+            imagenode.detach('click', M.block_announce.clickundo);
+            imagenode.removeClass('cursor');
 
             imagenode.transition({
                 height: 0
             });
 
             block = this.ancestor('.block_announce');
-            list = block.all('.hiddenmessage');
+
+            msgbox = Y.Node.one('#block_announce_message_box');
+            count = msgbox.getAttribute('msgcount');
+            count--;
+            msgbox.setAttribute('msgcount', count);
+            
 
             // For some reason, padding and border cause the transition to never end.
             // Putting them in a seperate transition.
@@ -115,13 +122,13 @@ M.block_announce.clickdelete = function(e, Y) {
                 height: 0,
                 //width: 0
             }, function() {
-                if (list.size() > 1) {
+                if (count >= 1) {
                     this.empty(true);
                     this.remove(true);
                     this.destroy(true);
                 }
             });
-            if (list.size() <= 1) {
+            if (count <= 0) {
                 if (block) {
                     block.transition({
                         minHeight: 0,

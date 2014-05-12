@@ -37,9 +37,9 @@ class block_announce extends block_base {
             return $this->content;
         }
 
-        $this->content        = new stdClass;
-        $this->content->text  = $OUTPUT->box('', 'hidden', 'block_announce_hidden_box');
-        $this->content->text  .= $OUTPUT->box('', 'messagebox hidden', 'block_announce_message_box');
+        $this->content       = new stdClass;
+        $this->content->text = '';
+        
 
         
 
@@ -50,10 +50,18 @@ class block_announce extends block_base {
         $hidden = get_user_preferences('block_announce_hidden');
         $hidden = explode(',', $hidden);
 
+        $count = 0;
         foreach ($messages as $message) {
             //if (!in_array($message->id, $hidden)) {
                 $this->content->text .= $renderer->message($message);
+                $count++;
+                
             //}
+        }
+
+        if ($count) {
+            $this->content->text  .= $OUTPUT->box('', 'hidden', 'block_announce_hidden_box');
+            $this->content->text  .= $OUTPUT->box('', 'messagebox hidden', 'block_announce_message_box', array('msgcount' => $count));
         }
 
         //$this->content->footer = '';
