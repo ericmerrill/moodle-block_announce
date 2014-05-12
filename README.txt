@@ -1,4 +1,4 @@
-System Messages Block for Moodle (block_system_messages)
+Announcements Block for Moodle (block_announce)
 
 Maintainer  Eric Merrill (merrill@oakland.edu)
 Copyright   2014 Oakland University
