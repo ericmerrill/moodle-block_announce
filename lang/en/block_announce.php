@@ -29,3 +29,5 @@ $string['pluginname'] = 'Announcements';
 
 $string['announce:addinstance'] = 'Add a new Announcements block';
 $string['announce:addmyinstance'] = 'Add a new Announcements block to the My Moodle page';
+$string['cachedef_messages'] = 'Messages';
+$string['cachedef_userroles'] = 'User course roles';

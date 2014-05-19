@@ -25,9 +25,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2014051505;
-$plugin->requires  = 2013101800; // See http://docs.moodle.org/dev/Moodle_Versions.
-$plugin->cron      = 1;
-$plugin->component = 'block_announce';
-$plugin->maturity  = MATURITY_ALPHA;
-$plugin->release   = '0.0.1 Alpha';
+$definitions = array(
+    'userroles' => array(
+        'mode' => cache_store::MODE_SESSION,
+    ),
+    'messages' => array(
+        'mode' => cache_store::MODE_APPLICATION,
+        'simplekeys' => true,
+        'requireidentifiers' => array('blockid'),
+        'datasource' => '\block_announce\message_loader',
+        'mappingsonly' => true,
+    )
+);

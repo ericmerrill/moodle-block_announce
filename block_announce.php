@@ -39,6 +39,7 @@ class block_announce extends block_base {
 
         $this->content       = new stdClass;
         $this->content->text = '';
+        $this->content->title = 'Announcements';
         
 
         
@@ -51,14 +52,20 @@ class block_announce extends block_base {
         $hidden = explode(',', $hidden);
 
         $count = 0;
-        foreach ($messages as $message) {
+        $messagecache = cache::make('block_announce', 'messages', array('blockid' => $this->instance->id));
+        $messages = $messagecache->get(0);
+        //$messages = $DB->get_records('block_announce_messages', array('blockid' => $this->instance->id));
+
+        foreach ($messages as $msgshort) {
             //if (!in_array($message->id, $hidden)) {
+                $message = $messagecache->get($msgshort->id);
                 $this->content->text .= $renderer->message($message);
                 $count++;
                 
             //}
         }
-
+        
+        
         if ($count) {
             $this->content->text  .= $OUTPUT->box('', 'hidden', 'block_announce_hidden_box');
             $this->content->text  .= $OUTPUT->box('', 'messagebox hidden', 'block_announce_message_box', array('msgcount' => $count));
@@ -75,5 +82,21 @@ class block_announce extends block_base {
 
     public function applicable_formats() {
         return array('all' => true, 'mod' => false, 'tag' => false);
+    }
+    
+    public function instance_allow_multiple() {
+        return true;
+    }
+    
+    public function instance_can_be_hidden() {
+        return false;
+    }
+    
+    public function instance_can_be_docked() {
+        return false;
+    }
+    
+    public function instance_can_be_collapsed() {
+        return false;
     }
 }
